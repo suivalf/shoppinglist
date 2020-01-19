@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
-from models import Item
 import psycopg2
 
 app = Flask(__name__)
@@ -8,6 +7,16 @@ app.secret_key = "password"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fhsgnjxnwwlekg:310ee1fe4f7cdd7b103d3f2d0424fb3d7b6da13f8568ea5b3c5c9e3cb7dd12de@ec2-54-217-235-87.eu-west-1.compute.amazonaws.com:5432/d4de83c852dcei'
 db = SQLAlchemy(app)
 
+class Item(db.Model):
+    __tablename__ = 'item'
+    id = db.Column(db.Integer, primary_key = True)
+    item_name = db.Column(db.String(200), nullable=False)
+    item_qty = db.Column(db.Integer, nullable=True)
+    def __init__(self, item_name, item_qty):
+        self.item_name = item_name
+        self.item_qty = item_qty
+    def __repr__(self):
+        return '<Item: %r, Name: %r, Quantity: %r>' % self.id % self.item_name % self.item_qty
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
