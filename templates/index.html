@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Shopping List</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="head" id="head">
+    <p>Your shopping list</p>
+    </div>
+    <div class="form" id="inputBar">
+        <form id= "form" action="/" method="POST">
+            <input type="text" name="name" class= "name" id="name" placeholder="Item Name" autofocus>
+            <input type="number" name="qty" min="1" class= "qty" id="qty" placeholder="Item Quantity">
+            <input type="submit" class= "subm" id="subm" value="Add">
+        </form>
+    </div>
+    
+    {% if shopping_list|length < 1 %}
+    <h3>There are no items in your shopping cart!</h3>
+    <h2>What are you waiting for?</h2>
+    {% else %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class=flashes>
+                {% for message in messages %}
+                    <p style="font-size:30px;color:firebrick;"><b>{{ message }}</b></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <!-- HERE -->
+    <div style="overflow-x:auto;">
+            <table id = "table" class="center" style="background-color:rgba(0, 0, 0, 0);">
+                <tr>
+                    <th bgcolor='orange'>Item</th>
+                    <th bgcolor="orange">Quantity</th>
+                    
+                </tr>
+                {% for item in shopping_list %}
+                <tr>
+                    <td style="word-break:break-all;"> <!-- Stop the text from going past the table borders-->
+                        {{ item.item_name }} 
+                        <a href="/delete/{{item.id}}"><input type="button" class="btn" name="delete" value="X" style="float: left;"></a>
+                    </td>
+                    <td>
+                        <a href="/decrement/{{item.id}}"><input type="button" class="btnD" name="decrement" value="-" ></a>
+                        {{ item.item_qty }}
+                        <a href="/increment/{{item.id}}"><input type="button" class="btnI" name="increment" value="+"></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+    {% endif %}
+    </div>
+    <!-- HERE -->
+    
+</div>
+{% endblock %}

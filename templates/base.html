@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Caveat+Brush&display=swap" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    {% block body %}{% endblock %}
+    
+</body>
+<script>
+        crossRow();
+        function crossRow() {
+            var table = document.getElementById('table');
+            var cells = table.getElementsByTagName('td');
+        
+            for (var i = 0; i < cells.length; i+=2) {
+                // works only on clicks on the first column (Item)
+                var cell = cells[i];
+                // function to add the selected class to the clicked row
+                cell.onclick = function () {
+                    // get the row id
+                    var rowId = this.parentNode.rowIndex;
+                    if (table.getElementsByTagName('tr')[rowId].className == "")
+                        table.getElementsByTagName('tr')[rowId].className = " selected";
+                        
+                    
+                }
+            }
+        
+        }
+        </script>
+</html>
