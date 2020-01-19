@@ -4,7 +4,7 @@ import psycopg2
 
 app = Flask(__name__)
 app.secret_key = "password"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost:5432/database'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fhsgnjxnwwlekg:310ee1fe4f7cdd7b103d3f2d0424fb3d7b6da13f8568ea5b3c5c9e3cb7dd12de@ec2-54-217-235-87.eu-west-1.compute.amazonaws.com:5432/d4de83c852dcei'
 db = SQLAlchemy(app)
 db.init_app(app)
 
